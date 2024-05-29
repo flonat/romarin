@@ -27,16 +27,12 @@
         <script>
             let timeLeft = {{ C.TIMEOUT_SECONDS }};
             const timerElement = document.createElement('p');
-            timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
-            document.querySelector('form').parentNode.insertBefore(timerElement, document.querySelector('form').nextSibling);
+            timerElement.textContent = `Time remaining: ${timeLeft} seconds`; // Initial text
 
             const countdown = setInterval(function() {
-                timeLeft--;
-                timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
-                if (timeLeft <= 0) {
-                    clearInterval(countdown);
-                    document.querySelector('form').submit(); 
-                }
+                // ...
+                timerElement.textContent = `Time remaining: ${timeLeft} seconds`; // Update text directly
+                // ...
             }, 1000);
         </script>
     {% endif %}

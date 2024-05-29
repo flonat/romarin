@@ -37,20 +37,8 @@ class Decision(Page):
     form_fields = ['decision']
     timeout_seconds = C.TIMEOUT_SECONDS
 
-    @staticmethod
     def vars_for_template(player: Player):
-        # Determine if the player entered the market
-        player_entered = player.outcome == 'enter'
-
-        # Calculate the number of other firms that entered
-        num_other_firms = random.randint(0, C.MAX_FIRMS - 1) if player_entered else random.randint(0, C.MAX_FIRMS)  # Adjusted for when the player doesn't enter
-
-        return {
-            'decision': player.decision,
-            'outcome': player.outcome,  
-            'game_payoff': player.game_payoff,
-            'num_entering': num_other_firms + (1 if player_entered else 0)  # Add 1 if the player entered
-        }
+        return {'treatment': player.participant.vars['treatment']}
 
     @staticmethod
     def before_next_page(player: Player, timeout_happened):

@@ -27,7 +27,7 @@ class Player(BasePlayer):
         widget=widgets.RadioSelect,
         label='What is your decision?'
     )
-    outcome = models.StringField(choices=['cooperate', 'defect'])
+    outcome = models.StringField(choices=['cooperate', 'defect'], blank=True, initial=None) 
     computer_decision = models.StringField(choices=['cooperate', 'defect'])
     game_payoff = models.CurrencyField()
     comment_result = models.LongStringField(
@@ -78,7 +78,7 @@ class Results(Page):
     def vars_for_template(player: Player):
         return {
             'decision': player.decision,
-            'outcome': player.outcome,
+            'outcome': player.field_maybe_none('outcome'), 
             'computer_decision': player.computer_decision,  # Add this line
             'game_payoff': player.game_payoff
         }
