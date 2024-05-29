@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}Results{% endblock %}
+
+{% block content %}
+    <h2>Results</h2>
+
+    <p><strong>Your Contribution:</strong> <span style="color: blue;">{{ contribution }}</span></p>
+    <p><strong>Computer's Contribution:</strong> <span style="color: green;">{{ computer_contribution }}</span></p>
+
+    <p><strong>Total Contribution:</strong> <span style="font-weight: bold;">{{ total_contribution }}</span></p>
+
+    <p><strong>Your Share of the Public Good:</strong> <span style="color: purple;">{{ individual_share }}</span></p>
+
+    <p><strong>Your Total Payoff:</strong> <span style="font-size: 1.2em;">{{ game_payoff }}</span></p>
+    
+    <p><strong>Number of firms that entered the market:</strong> <span style="color: red;">{{ num_entering }}</span></p>
+
+    <form method="post">
+        <label for="comment_result">What do you think about the results of the game you played?</label>
+        {{ formfield 'comment_result' }}
+        <br>
+        <label for="comment_optional">Is there anything in particular you want to comment on? (optional)</label>
+        {{ formfield 'comment_optional' }}
+        <br>
+        <button type="submit">Next</button>
+    </form>
+{% endblock %}

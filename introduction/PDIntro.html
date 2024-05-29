@@ -1,0 +1,62 @@
+{% extends "global/Page.html" %}
+{% block title %}Prisoner's Dilemma{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <img src="{{ static 'images/pd_image.jpg' }}" style="width: 937px; height: 400px;"/>
+</div>
+
+Welcome to the Prisoner's Dilemma Game! (whether it's your first, second, or even third time playing)<br>
+<br>
+In this game, you will be paired with another participant. Both of you will make decisions without knowing what the other person chooses. Here's how it works:<br>
+<br>
+<b>Scenario</b>:<br>
+Imagine that you and another participant have been arrested for a minor crime. The police suspect you of a more serious crime but lack sufficient evidence. They offer you both a deal:
+<ol>
+ <li><strong>If both of you cooperate (stay silent)</strong>: You both receive a light sentence of 1 year in prison.</li>
+ <li><strong>If one of you defects (betrays the other) while the other cooperates</strong>: The betrayer goes free, and the cooperator receives a heavy sentence of 5 years in prison.</li>
+ <li><strong>If both of you defect (betray each other)</strong>: You both receive a moderate sentence of 3 years in prison.</li>
+</ol>
+Your Choices:
+
+<ul>
+ <li><strong>Cooperate</strong>: Stay silent.</li>
+ <li><strong>Defect</strong>: Betray the other participant.</li>
+</ul>
+You will make your choice without knowing what the other participant decides. The outcome depends on the combination of both choices.<br>
+<strong>Examples</strong>:
+
+<ul>
+ <li><strong>Both Cooperate</strong>: 1 year each.</li>
+ <li><strong>One Defects</strong>, One Cooperates: Betrayer goes free, cooperator gets 5 years.</li>
+ <li><strong>Both Defect</strong>: 3 years each. Objective: Decide whether to cooperate or defect, considering the potential outcomes.</li>
+</ul>
+Remember, the other participant faces the same dilemma. After making your choice, you will see the outcome based on your and the other participant's choices.<br>
+<br>
+<strong>Instructions</strong>:
+
+<ul>
+ <li>Take a moment to think about your strategy.</li>
+ <li>Make your choice within the given time frame.</li>
+ <li>Reflect on the outcome after each round.</li>
+ <li>Good luck, and think strategically!&nbsp;</li>
+</ul>
+
+<form method="POST">
+    <button type="submit">Next</button>
+</form>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var startTime = Date.now();
+
+        document.querySelector('form').addEventListener('submit', function() {
+            var endTime = Date.now();
+            var timeSpent = (endTime - startTime) / 1000; // Time in seconds
+
+            // Store the timeSpent value in participant.vars
+            oTree.participant.vars.time_spent_pd_intro = timeSpent;;
+        });
+    });
+</script> -->
+
+{% endblock %}

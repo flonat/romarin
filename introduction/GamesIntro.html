@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load static %}
+{% block title %}Games Introduction{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <img src="{% static 'images/games_image.jpg' }}" style="width: 937px; height: 400px;"/>
+</div>
+
+<div style="text-align: left;">
+    It's now time to play some games. All games involve you and another player (don't worry, the other player has already played, there's no need for you to wait).
+</div>
+<div style="text-align: left;"><br></div>
+<div style="text-align: left;">
+    After you make your play, "The Algorithm" or more simply put, the computer is going to compute and present the results to you.
+</div>
+<div style="text-align: left;"><br></div>
+<div style="text-align: left;">
+    You will be asked a few questions after playing each game, and then at the end another set of questions.
+</div>
+<div style="text-align: left;"><br></div>
+<div style="text-align: left;">
+    Are you ready to play? (yes, that was rhetorical)
+</div>
+
+<form method="POST">
+    <button type="submit">Next</button>
+</form>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var startTime = Date.now();
+
+        document.querySelector('form').addEventListener('submit', function() {
+            var endTime = Date.now();
+            var timeSpent = (endTime - startTime) / 1000; // Time in seconds
+
+            // Store the timeSpent value in participant.vars
+            oTree.participant.vars.time_spent_games_intro = timeSpent;;
+        });
+    });
+</script> -->
+{% endblock %}

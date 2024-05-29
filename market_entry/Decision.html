@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+        Market Entry Game
+{% endblock %}
+
+{% block content %}
+
+    <h2>
+        {% if treatment == 'choice_blindness' %}
+            Please indicate whether you would like to enter the market or stay out
+        {% else %}
+            Do you want to enter the market? 
+            If you are the only firm to enter, you will earn {{ C.PROFIT_IF_MONOPOLY }}.
+            If other firms also enter, you will earn {{ C.PROFIT_IF_COMPETITION }}.
+            If you stay out, you earn 0.
+        {% endif %}
+    </h2>
+
+    <form method="post">
+        {{ formfield 'decision' }}
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if treatment == 'choice_overload' or treatment == 'both' %}
+        <script>
+            let timeLeft = {{ C.TIMEOUT_SECONDS }};
+            const timerElement = document.createElement('p');
+            timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
+            document.querySelector('form').parentNode.insertBefore(timerElement, document.querySelector('form').nextSibling);
+
+            const countdown = setInterval(function() {
+                timeLeft--;
+                timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    document.querySelector('form').submit(); 
+                }
+            }, 1000);
+        </script>
+    {% endif %}
+{% endblock %}

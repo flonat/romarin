@@ -1,3 +1,5 @@
-otree>=5.4.0
-psycopg2>=2.8.4
+otree==5.8.0
+django
+gunicorn
+psycopg2-binary
 sentry-sdk>=0.7.9

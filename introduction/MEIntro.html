@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% load static %}
+{% block title %}Market Entry Game{% endblock %}
+
+{% block content %}
+<div style="text-align: center;">
+    <img src="{{ static 'images/me_image.jpg' }}" style="width: 937px; height: 400px;"/>
+</div>
+
+<p>Welcome to the Market Entry Game!</p>
+<br>
+<p>In this game, you will make decisions as if you are a business owner considering entering a new market. Here's how it works:</p>
+<br>
+<b>Scenario:</b>
+<p>Imagine that you and several other participants are business owners deciding whether to enter a new market. The market can only support a limited number of businesses before profits start to decrease due to competition. Each of you will decide independently whether to enter the market or stay out.</p>
+<p>Your Choices:</p>
+<ul>
+    <li><strong>Enter</strong>: Decide to enter the new market. If too many businesses enter, the profit for each will decrease.</li>
+    <li><strong>Stay Out</strong>: Decide not to enter the new market and keep your current profit level, which is lower than the potential market profit but guaranteed.</li>
+</ul>
+<p>You will make your decision without knowing how many of the other participants will enter the market. The outcome depends on the total number of businesses that decide to enter.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+    <li><strong>Few Enter</strong>: If only a few businesses enter the market, each business makes a high profit.</li>
+    <li><strong>Many Enter</strong>: If many businesses enter the market, the profit is spread thin, and each business makes less profit or even a loss.</li>
+    <li><strong>No One Enters</strong>: If no one enters, everyone keeps their current profit level, which is lower than the potential market profit.</li>
+</ul>
+<p><strong>Objective:</strong> Decide whether to enter the market, considering the potential profit and the risk of over-saturation.</p>
+<p>Remember, the total profit depends on the number of businesses that decide to enter the market. After making your choice, you will see the outcome based on your and the other participants' decisions.</p>
+<br>
+<p><strong>Instructions:</strong></p>
+<ul>
+    <li>Consider your strategy carefully.</li>
+    <li>Decide whether to enter the new market or stay out.</li>
+    <li>Reflect on the outcome after each round.</li>
+    <li>Good luck, and think strategically!</li>
+</ul>
+
+<form method="POST">
+    <button type="submit">Next</button>
+</form>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var startTime = Date.now();
+
+        document.querySelector('form').addEventListener('submit', function() {
+            var endTime = Date.now();
+            var timeSpent = (endTime - startTime) / 1000; // Time in seconds
+
+            // Store the timeSpent value in participant.vars
+            oTree.participant.vars.time_spent_me_intro = timeSpent;;
+        });
+    });
+</script> -->
+{% endblock %}

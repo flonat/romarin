@@ -1,0 +1,63 @@
+{% extends "global/Page.html" %}
+{% block title %}Specific Questions{% endblock %}
+
+{% block content %}
+<h2>Specific Questions</h2>
+<form method="post">
+    <div>
+        <label for="genq_perception">
+            <b>A few questions now about your perceptions of certain aspects pertinent to the study</b>
+        </label>
+    </div>
+    <div>
+        <label for="genq_perception_alg">
+            <b>Let's see first what are your feelings towards algorithms</b>
+        </label>
+    </div>
+    <div>
+        {{ formfield player.feelings_towards_algorithms }}
+    </div>
+    <div>
+        {{ formfield player.alg_unbiased }}
+    </div>
+    <div>
+        {{ formfield player.alg_comfort }}
+    </div>
+
+    <hr>
+
+    <div>
+        <label for="genq_perception_time">
+            <b>Now, how do you feel about making decisions under time pressure?</b>
+        </label>
+    </div>
+    <div>
+        {{ formfield player.time_well }}
+    </div>
+    <div>
+        {{ formfield player.time_improve }}
+    </div>
+    <div>
+        {{ formfield player.time_stress }}
+    </div>
+
+    <hr>
+
+    <div>
+        <label for="genq_perception_fair">
+            <b>And finally, we'd like to get your perception of the fairness of algorithms</b>
+        </label>
+    </div>
+    <div>
+        {{ formfield player.fair_fair }}
+    </div>
+    <div>
+        {{ formfield player.fair_transparency }}
+    </div>
+    <div>
+        {{ formfield player.fair_bias }}
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

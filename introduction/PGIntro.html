@@ -1,0 +1,56 @@
+{% extends "global/Page.html" %}
+{% block title %}Public Goods Game {% endblock %}
+
+{% block content %}
+
+<div style="text-align: center;">
+    <img src="{{ static 'images/pg_image.jpg' }}" style="width: 937px; height: 400px;"/>
+</div>
+
+<p>Welcome to the Public Goods Game!</p>
+<br>
+<p>In this game, you will be part of a group of participants. Each of you will decide how much of your private endowment to contribute to a public pot. Here’s how it works:</p>
+<br>
+<b>Scenario:</b>
+<p>Imagine that you and other participants are members of a community. Each of you has been given an endowment of 10 units. You have to decide how much of this endowment you will contribute to the public pot. The amount in the public pot will be multiplied by a factor of 2 and then equally distributed among all participants, regardless of their individual contributions.</p>
+<p>Your Choices:</p>
+<ul>
+    <li><strong>Contribute</strong>: Decide how much of your endowment to put into the public pot.</li>
+    <li><strong>Keep</strong>: Decide how much of your endowment to keep for yourself.</li>
+</ul>
+<p>You will make your decision without knowing how much the other participants will contribute. The outcome depends on the total contributions to the public pot.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+    <li><strong>All Contribute</strong>: If everyone contributes their full endowment, the total contribution is multiplied, and each participant gets a significant return.</li>
+    <li><strong>Some Contribute</strong>, Some Keep: Those who contribute to the public pot increase the total amount that is shared, but those who keep more of their endowment benefit individually at the expense of the group.</li>
+    <li><strong>No One Contributes</strong>: If no one contributes to the public pot, no additional return is generated, and everyone keeps their initial endowment.</li>
+</ul>
+<p><strong>Objective:</strong> Decide how much to contribute to maximize both your individual return and the collective benefit.</p>
+<p>Remember, the total amount in the public pot depends on the contributions of all participants. After making your choice, you will see the outcome based on your and the other participants' contributions.</p>
+<br>
+<p><strong>Instructions:</strong></p>
+<ul>
+    <li>Consider your strategy carefully.</li>
+    <li>Decide how much to contribute to the public pot.</li>
+    <li>Reflect on the outcome after each round.</li>
+    <li>Good luck, and think strategically!</li>
+</ul>
+
+<form method="POST">
+    <button type="submit">Next</button>
+</form>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var startTime = Date.now();
+
+        document.querySelector('form').addEventListener('submit', function() {
+            var endTime = Date.now();
+            var timeSpent = (endTime - startTime) / 1000; // Time in seconds
+
+            // Store the timeSpent value in participant.vars
+            oTree.participant.vars.time_spent_pg_intro = timeSpent;;
+        });
+    });
+</script> -->
+{% endblock %}

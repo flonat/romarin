@@ -1,8 +1,63 @@
-{% extends "otree/Page.html" %}
-{% load otree static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        body {
+            font-family: 'Garamond', serif; /* Or your preferred font */
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #000;
+        }
 
-{% block global_styles  %}
-{% endblock %}
+        .container {
+            width: 80%;  /* Adjust width as needed */
+            margin: 20px auto; /* Top/bottom margin, auto left/right for centering */
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
 
-{% block global_scripts  %}
-{% endblock %}
+        header {
+            background-color: #ffffff;
+            color: #000;
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd; /* Subtle line under header */
+        }
+
+        header h1 {
+            margin: 10px 0; /* Reduce margin around the heading */
+            font-size: 24px;
+        }
+
+        header img {
+            height: 100px;   /* Logo height matching a 20px line */
+            width: auto;    /* Maintain aspect ratio */
+        }
+
+        footer {
+            background-color: #ffffff;
+            color: #000;
+            text-align: center;
+            padding: 10px 0;
+            border-top: 1px solid #ddd; /* Subtle line above footer */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{% static 'images/logo_BSE.png' %}" alt="BSE Logo">
+        <h1>Experimental Economics Survey</h1>
+    </header>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2024 Barcelona School of Economics - Universitat Pompeu Fabra</p>
+    </footer>
+</body>
+</html>

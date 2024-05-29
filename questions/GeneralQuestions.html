@@ -1,0 +1,26 @@
+{% extends "global/Page.html" %}
+{% block title %}General Questions{% endblock %}
+
+{% block content %}
+<h2>General Questions</h2>
+<form method="post">
+    <div>
+        <label for="genq_intro">
+            <b>Now that you've played our little games, here are some general questions:</b>
+        </label>
+    </div>
+    <div>
+        {{ formfield player.age }}
+    </div>
+    <div>
+        {{ formfield player.gender }}
+    </div>
+    <div>
+        {{ formfield player.education }}
+    </div>
+    <div>
+        {{ formfield player.employment }}
+    </div>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

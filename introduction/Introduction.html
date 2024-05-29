@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load staticfiles %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div style="text-align: center;">
+        <img src="{% static 'images/intro_image.jpg' %}" style="width: 937px; height: 400px;" alt="Introduction Image" />
+
+        <br /><br />
+        Thank you for taking the time to participate in our survey. The survey is anonymous and will not store any data other than the responses to the questions therein.
+        <br /><br />
+        When you are in the survey, please answer each question thoughtfully and honestly.
+        <br /><br />
+        You will be presented with various games for you to play. You will then be asked to answer a few questions.
+        <br /><br />
+        If you have any questions or concerns, please reach out to Florian Burnat, James Connolly and Jacob Pereira (through <a href="mailto:florian.burnat@bse.eu">florian.burnat@bse.eu</a>).
+        <br /><br />
+        
+    </div>
+
+    <form method="POST">
+        <button type="submit">Next</button>
+    </form>
+
+{% endblock %}

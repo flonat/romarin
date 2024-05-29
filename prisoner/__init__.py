@@ -1,55 +1,89 @@
-
 from otree.api import *
-c = cu
+import random
+import itertools
 
-doc = '\nThis is a one-shot "Prisoner\'s Dilemma". Two players are asked separately\nwhether they want to cooperate or defect. Their choices directly determine the\npayoffs.\n'
 class C(BaseConstants):
-    NAME_IN_URL = 'prisoner'
-    PLAYERS_PER_GROUP = 2
-    NUM_ROUNDS = 1
-    PAYOFF_A = cu(300)
-    PAYOFF_B = cu(200)
-    PAYOFF_C = cu(100)
-    PAYOFF_D = cu(0)
-    INSTRUCTIONS_TEMPLATE = 'prisoner/instructions.html'
-class Subsession(BaseSubsession):
-    pass
-class Group(BaseGroup):
-    pass
-def set_payoffs(group: Group):
-    for p in group.get_players():
-        set_payoff(p)
-class Player(BasePlayer):
-    cooperate = models.BooleanField(choices=[[True, 'Cooperate'], [False, 'Defect']], doc='This player s decision', widget=widgets.RadioSelect)
-def other_player(player: Player):
-    group = player.group
-    return player.get_others_in_group()[0]
-def set_payoff(player: Player):
-    payoff_matrix = {
-        (False, True): C.PAYOFF_A,
-        (True, True): C.PAYOFF_B,
-        (False, False): C.PAYOFF_C,
-        (True, False): C.PAYOFF_D,
+    NAME_IN_URL = 'prisoners_dilemma'
+    PLAYERS_PER_GROUP = None 
+    NUM_ROUNDS = 5
+    TIMEOUT_SECONDS = 10
+    TREATMENTS = ['control', 'choice_blindness', 'choice_overload', 'both'] 
+    PAYOFF_RANGES = {
+        'CC': (8, 12), 
+        'CD': (-2, 2), 
+        'DC': (18, 22),
+        'DD': (3, 7)
     }
-    other = other_player(player)
-    player.payoff = payoff_matrix[(player.cooperate, other.cooperate)]
-class Introduction(Page):
-    form_model = 'player'
-    timeout_seconds = 100
+
+class Subsession(BaseSubsession):
+    pass  # No need for creating_session as treatment is assigned in another app
+
+class Group(BaseGroup):
+    pass  
+
+class Player(BasePlayer):
+    decision = models.StringField(
+        choices=[('cooperate', 'Cooperate'), ('defect', 'Defect')],
+        widget=widgets.RadioSelect,
+        label='What is your decision?'
+    )
+    outcome = models.StringField(choices=['cooperate', 'defect'])
+    computer_decision = models.StringField(choices=['cooperate', 'defect'])
+    game_payoff = models.CurrencyField()
+    comment_result = models.LongStringField(
+        label="What do you think about the results of the game you played?"
+    )
+    comment_optional = models.LongStringField(
+        blank=True, label="Is there anything in particular you want to comment on? (optional)"
+    )
+    
+
+
+# Pages
+
 class Decision(Page):
     form_model = 'player'
-    form_fields = ['cooperate']
-class ResultsWaitPage(WaitPage):
-    after_all_players_arrive = set_payoffs
-class Results(Page):
-    form_model = 'player'
+    form_fields = ['decision']
+    timeout_seconds = C.TIMEOUT_SECONDS
+
     @staticmethod
     def vars_for_template(player: Player):
-        opponent = other_player(player)
-        return dict(
-            opponent=opponent,
-            same_choice=player.cooperate == opponent.cooperate,
-            my_decision=player.field_display('cooperate'),
-            opponent_decision=opponent.field_display('cooperate'),
-        )
-page_sequence = [Introduction, Decision, ResultsWaitPage, Results]
+        treatment = player.participant.vars.get('treatment', 'control')  # Get treatment with default
+        return {'treatment': treatment}
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):            
+        treatment = player.participant.vars.get('treatment', 'control')  # Default to 'control' if not found
+
+        if treatment in ['choice_overload', 'both']:
+            if timeout_happened:
+                player.decision = random.choice(['cooperate', 'defect'])
+        if treatment in ['choice_blindness', 'both']:
+            player.decision = random.choice(['cooperate', 'defect'])
+
+        player.computer_decision = random.choice(['C', 'D'])  # Use 'C' and 'D' instead of 'cooperate' and 'defect'
+        
+        # Create the outcome key as a 2-character string representing both decisions
+        outcome_key = player.decision[0].upper() + player.computer_decision  
+        
+        payoff_range = C.PAYOFF_RANGES[outcome_key]
+        player.game_payoff = cu(random.randint(*payoff_range))
+
+
+class Results(Page):
+    form_model = 'player'
+    form_fields = ['comment_result', 'comment_optional']
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'decision': player.decision,
+            'outcome': player.outcome,
+            'computer_decision': player.computer_decision,  # Add this line
+            'game_payoff': player.game_payoff
+        }
+    def error_message(player: Player, values):
+        if not values['comment_result']:
+            return 'Please provide your thoughts on the results.'
+
+page_sequence = [Decision, Results]

@@ -1,37 +1,46 @@
-{{ extends 'global/Page.html' }}
-{{ block title }}Your Choice{{ endblock }}
+{% extends "global/Page.html" %}
+{% load otree static %}
 
-{{ block content }}
+{% block title %}Prisoner's Dilemma{% endblock %}
 
-<div class="form-group required">
-    <table class="table table-bordered text-center" style="width: auto; margin: auto">
-        <tr>
-            <th colspan="2" rowspan="2"></th>
-            <th colspan="2">The Other Participant</th>
-        </tr>
-        <tr>
-            <th>Cooperate</th>
-            <th>Defect</th>
-        </tr>
-        <tr>
-            <th rowspan="2"><span>You</span></th>
-            <td><button name="cooperate" value="True" class="btn btn-primary btn-large">I will cooperate</button></td>
-            <td>{{C.PAYOFF_B}}, {{C.PAYOFF_B}}</td>
-            <td>{{ C.PAYOFF_D }}, {{C.PAYOFF_A}}</td>
-        </tr>
-        <tr>
-            <td><button name="cooperate" value="False" class="btn btn-primary btn-large">I will defect</button></td>
-            <td>{{C.PAYOFF_A}}, {{ C.PAYOFF_D }}</td>
-            <td>{{C.PAYOFF_C}}, {{C.PAYOFF_C}}</td>
-        </tr>
-    </table>
-</div>
+{% block content %}
 
-<p>Here you can chat with the other participant.</p>
+    <h2>
+        {% if group == 'choice_blindness' %}
+            Please indicate whether you would cooperate or defect.
+        {% else %}
+            You and another person have been arrested for a crime. 
+            You are being held in separate cells and cannot communicate with each other.
+            The police lack evidence to convict you both on the main charge, so they offer you a deal:
+            <br><br>
+            * If you both remain silent (cooperate), you each serve 1 year in prison.
+            * If you betray your partner (defect), while they remain silent, you go free and they serve 3 years.
+            * If you both betray each other (defect), you each serve 2 years.
+            <br><br>
+            Choose whether to <strong>cooperate</strong> or <strong>defect</strong>.
+        {% endif %}
+    </h2>
 
-{{ chat }}
+    <form method="post">
+        {{ formfield 'decision' }}
+        <button type="submit">Submit</button>
+    </form>
 
+    {% if group == 'choice_overload' or group == 'both' %}
+        <script>
+            let timeLeft = {{ C.TIMEOUT_SECONDS }};
+            const timerElement = document.createElement('p');
+            timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
+            document.querySelector('form').parentNode.insertBefore(timerElement, document.querySelector('form').nextSibling);
 
-{{ include C.INSTRUCTIONS_TEMPLATE }}
-
-{{ endblock }}
+            const countdown = setInterval(function() {
+                timeLeft--;
+                timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    document.querySelector('form').submit(); 
+                }
+            }, 1000);
+        </script>
+    {% endif %}
+{% endblock %}

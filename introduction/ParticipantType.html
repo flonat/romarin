@@ -1,0 +1,40 @@
+{% extends "otree/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+    <form method="post">
+        <div>
+            {{ formfield 'participant_type' }}
+        </div>
+        <div id="student_name_field" style="display:none;">
+            {{ formfield 'fictitious_name' }}
+        </div>
+        <div id="prolific_id_field" style="display:none;">
+            {{ formfield 'prolific_id' }}
+        </div>
+        <button type="submit">{{ next }}</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var participantTypeField = document.querySelectorAll('input[name="participant_type"]');
+            var studentNameField = document.getElementById('student_name_field');
+            var prolificIdField = document.getElementById('prolific_id_field');
+
+            participantTypeField.forEach(function(radio) {
+                radio.addEventListener('change', function() {
+                    if (radio.value === 'student' && radio.checked) {
+                        studentNameField.style.display = 'block';
+                        prolificIdField.style.display = 'none';
+                    } else if (radio.value === 'prolific' && radio.checked) {
+                        studentNameField.style.display = 'none';
+                        prolificIdField.style.display = 'block';
+                    } else {
+                        studentNameField.style.display = 'none';
+                        prolificIdField.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

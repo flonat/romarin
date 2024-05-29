@@ -1,22 +1,28 @@
-{{ extends 'global/Page.html' }}
-{{ block title }}Results{{ endblock }}
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block title %}Results{% endblock %}
 
-{{ block content }}
+{% block content %}
+    <h2>Results</h2>
+    <p><strong>Your Decision:</strong> <span style="color: blue;">{{ decision }}</span></p>
+    <p><strong>Computer's Decision:</strong> <span style="color: green;">{{ computer_decision }}</span></p>  
 
-<p>
-    {{ if same_choice }}
-        Both of you chose to {{ my_decision }}.
-    {{ else }}
-        You chose to {{ my_decision }} and the other participant chose to {{ opponent_decision }}.
-    {{ endif }}
-</p>
+    {% if same_choice %}
+        <p>Both you and the computer chose the same action.</p>
+    {% else %}
+        <p>You and the computer chose different actions.</p>
+    {% endif %}
 
-<p>
-    As a result, you earned {{ player.payoff }}.
-</p>
+    <p><strong>Outcome:</strong> <span style="font-weight: bold;">{{ outcome }}</span></p>
+    <p><strong>Your Payoff:</strong> <span style="font-size: 1.2em;">{{ game_payoff }}</span></p>
 
-{{ next_button }}
-
-{{ include C.INSTRUCTIONS_TEMPLATE }}
-
-{{ endblock }}
+    <form method="post">
+        <label for="comment_result">What do you think about the results of the game you played?</label>
+        {{ formfield 'comment_result' }}
+        <br>
+        <label for="comment_optional">Is there anything in particular you want to comment on? (optional)</label>
+        {{ formfield 'comment_optional' }}
+        <br>
+        <button type="submit">Next</button>
+    </form>
+{% endblock %}
