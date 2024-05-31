@@ -1,41 +1,114 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
-{% block title %}Prisoner's Dilemma{% endblock %}
+{% block title %}
+    Prisoner's Dilemma
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        /* Payoff table styling */
+        .payoff-table {
+            width: 400px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .payoff-table th, .payoff-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .payoff-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Timer styling */
+        .timer {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Radio button labels styling */
+        label[for="id_decision_0"], label[for="id_decision_1"] {
+            display: block; /* Display each label on a new line */
+            margin-bottom: 5px; /* Add spacing between labels */
+        }
+        h2 {
+            text-align: center; /* Center the main heading */
+        }
+
+        .payoff-table {
+            margin: 0 auto;    /* Center the table */
+        }
+
+        form {
+            text-align: center; /* Center the form elements */
+        }
+    </style>
+{% endblock %}
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+<h2>Round {{ player.round_number }} of {{ C.NUM_ROUNDS }}</h2> 
 
-    <h2>
-        {% if group == 'choice_blindness' %}
-            Please indicate whether you would cooperate or defect.
-        {% else %}
-            You and another person have been arrested for a crime. 
+    {% if treatment == 'choice_blindness' %}
+        <p>Please indicate whether you would cooperate or defect.</p>
+    {% else %}
+        <p>
+            You and another person have been arrested for a crime.
             You are being held in separate cells and cannot communicate with each other.
             The police lack evidence to convict you both on the main charge, so they offer you a deal:
-            <br><br>
-            * If you both remain silent (cooperate), you each serve 1 year in prison.
-            * If you betray your partner (defect), while they remain silent, you go free and they serve 3 years.
-            * If you both betray each other (defect), you each serve 2 years.
-            <br><br>
-            Choose whether to <strong>cooperate</strong> or <strong>defect</strong>.
+        </p>
+        
+        <table class="payoff-table">
+            <tr>
+                <th></th>
+                <th>Partner Cooperates</th>
+                <th>Partner Defects</th>
+            </tr>
+            <tr>
+                <th>You Cooperate</th>
+                <td>{{ payoff_cc }} each</td>
+                <td>You: {{ payoff_cd_you }}, Partner: {{ payoff_cd_computer }}</td>
+            </tr>
+            <tr>
+                <th>You Defect</th>
+                <td>You: {{ payoff_dc_you }}, Partner: {{ payoff_dc_computer }}</td>
+                <td>{{ payoff_dd }} each</td>
+            </tr>
+        </table>
+
+        {% if player.round_number > 1 %}
+            <p>Remember, each round is independent. Previous choices do not influence the current outcome. Payoffs may vary.</p>
         {% endif %}
-    </h2>
+
+        <p>Choose whether to <strong>cooperate</strong> or <strong>defect</strong>.</p>
+    {% endif %}
 
     <form method="post">
         {{ formfield 'decision' }}
+        <br>  
         <button type="submit">Submit</button>
     </form>
 
-    {% if group == 'choice_overload' or group == 'both' %}
-        <script>
+    {% if treatment == 'choice_overload' or treatment == 'both' %}
+        <p class="timer" id="timer-element">Time remaining: {{ C.TIMEOUT_SECONDS }} seconds</p>
+        <script>            
             let timeLeft = {{ C.TIMEOUT_SECONDS }};
-            const timerElement = document.createElement('p');
-            timerElement.textContent = `Time remaining: ${timeLeft} seconds`; // Initial text
+            const timerElement = document.getElementById('timer-element'); // Get existing element
 
             const countdown = setInterval(function() {
-                // ...
-                timerElement.textContent = `Time remaining: ${timeLeft} seconds`; // Update text directly
-                // ...
+                timeLeft--;
+                timerElement.textContent = `Time remaining: ${timeLeft} seconds`;
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    document.querySelector('form').submit(); 
+                }
             }, 1000);
         </script>
     {% endif %}

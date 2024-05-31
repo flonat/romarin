@@ -1,7 +1,16 @@
 {% extends "global/Page.html" %}
-{% block title %}General Questions{% endblock %}
+{% load otree static %}
+
+{% block title %}
+    General Questions
+{% endblock %}
 
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+
 <h2>General Questions</h2>
 <form method="post">
     <div>

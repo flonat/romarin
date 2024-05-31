@@ -1,10 +1,19 @@
 {% extends "global/Page.html" %}
-{% load static %}
-{% block title %}Consent Form{% endblock %}
+{% load otree static %}
+
+{% block title %}
+    Consent Form
+{% endblock %}
 
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+
+
 <div style="text-align: left;">
-        <p>I HEREBY CONFIRM THAT:</p>
+    <p>I HEREBY CONFIRM THAT:</p>
     <ul>
         <li>I have read the information sheet regarding the research project.</li>
         <li>I have received enough information on the project.</li>
@@ -17,4 +26,5 @@
 <form method="POST">
     <button type="submit">Next</button>
 </form>
+
 {% endblock %}

@@ -1,7 +1,16 @@
 {% extends "global/Page.html" %}
-{% block title %}Public Goods Game {% endblock %}
+{% load otree static %}
+
+{% block title %}
+    Presentation of the Public Goods Game 
+{% endblock %}
 
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+
 
 <div style="text-align: center;">
     <img src="{{ static 'images/pg_image.jpg' }}" style="width: 937px; height: 400px;"/>

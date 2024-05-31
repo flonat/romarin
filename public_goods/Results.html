@@ -1,9 +1,16 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
-{% block title %}Results{% endblock %}
+{% block title %}
+    Results
+{% endblock %}
 
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+
     <h2>Results</h2>
 
     <p><strong>Your Contribution:</strong> <span style="color: blue;">{{ contribution }}</span></p>

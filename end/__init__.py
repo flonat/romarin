@@ -4,7 +4,6 @@ c = cu
 doc = ''
 
 # Models
-
 class Constants(BaseConstants):
     name_in_url = 'end'
     players_per_group = None

@@ -1,7 +1,17 @@
-{% extends "otree/Page.html" %}
+{% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block title %}
+    Who are you playing as?
+{% endblock %}
+
+
 {% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
+
     <form method="post">
         <div>
             {{ formfield 'participant_type' }}

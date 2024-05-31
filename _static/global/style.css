@@ -1,0 +1,21 @@
+body {
+    font-family: sans-serif; /* Choose a clear, easy-to-read font */
+    line-height: 1.6;       /* Improve readability with line spacing */
+    text-align: left; 
+    margin: 20px;           /* Add some margin around the content */
+}
+
+p {
+    margin-bottom: 15px;    /* Add space between paragraphs */
+}
+
+.intro {                 /* Style the introductory paragraph */
+    font-size: 1.2em;    /* Slightly larger font size */
+    font-weight: bold;   /* Make it bold */
+}
+
+.instructions {           /* Style instructions or important information */
+    background-color: #f0f0f5;  /* Subtle background color */
+    padding: 10px;            /* Add padding for visual separation */
+    border-radius: 5px;       /* Round the corners */
+}

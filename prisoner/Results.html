@@ -1,9 +1,50 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
-{% block title %}Results{% endblock %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+
+{% block styles %}
+    <style>
+        /* Payoff table styling */
+        .payoff-table {
+            width: 400px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .payoff-table th, .payoff-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .payoff-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Radio button labels styling */
+        label[for="id_decision_0"], label[for="id_decision_1"] {
+            display: block; /* Display each label on a new line */
+            margin-bottom: 5px; /* Add spacing between labels */
+        }
+    </style>
+{% endblock %}
+
+
 
 {% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
     <h2>Results</h2>
+    {% if round_number == 1 %}
+    <table class="payoff-table">
+         </table>
+    {% endif %}
+
     <p><strong>Your Decision:</strong> <span style="color: blue;">{{ decision }}</span></p>
     <p><strong>Computer's Decision:</strong> <span style="color: green;">{{ computer_decision }}</span></p>  
 

@@ -5,7 +5,6 @@ c = cu
 doc = ''
 
 # Models
-
 class C(BaseConstants):
     NAME_IN_URL = 'introduction'
     PLAYERS_PER_GROUP = None
@@ -15,10 +14,11 @@ class C(BaseConstants):
     
 class Subsession(BaseSubsession):
     def creating_session(self):
-        if self.round_number == 1:
-            treatments = itertools.cycle(C.TREATMENTS)  
-            for player in self.get_players():
-                player.participant.vars['treatment'] = next(treatments)
+        """Assign treatments to participants."""
+        treatments = itertools.cycle(C.TREATMENTS)
+        for player in self.get_players():
+            treatment = next(treatments)  # Get the next treatment from the cycle
+            player.participant.vars['treatment'] = treatment
                 
                 
 class Group(BaseGroup):
@@ -45,7 +45,6 @@ class Player(BasePlayer):
     
     
 # Pages
-
 class Introduction(Page):
     def is_displayed(self):
         return self.round_number == 1
@@ -149,22 +148,3 @@ page_sequence = [
     PGIntro,
     MEIntro
 ]
-
-
-### OTHER CODE## 
-
-
-
-
-# class Player(BasePlayer):
-#     age = models.IntegerField(label='What is your age', max=125, min=13)
-#     gender = models.StringField(choices=[['Male', 'Male'], ['Female', 'Female']], label='What is your gender', widget=widgets.RadioSelect)
-#     crt_bat = models.IntegerField(label='A bat and a ball cost 22 dollars in total The bat costs 20 dollars more than the ball How many dollars does the ball cost')
-#     crt_widget = models.IntegerField(label='If it takes 5 machines 5 minutes to make 5 widgets how many minutes would it take 100 machines to make 100 widgets')
-#     crt_lake = models.IntegerField(label='In a lake there is a patch of lily pads Every day the patch doubles in size If it takes 48 days for the patch to cover the entire lake how many days would it take for the patch to cover half of the lake')
-# class Demographics(Page):
-#     form_model = 'player'
-#     form_fields = ['age', 'gender']
-# class CognitiveReflectionTest(Page):
-#     form_model = 'player'
-#     form_fields = ['crt_bat', 'crt_widget', 'crt_lake']

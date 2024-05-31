@@ -1,18 +1,26 @@
 {% extends "global/Page.html" %}
-{% block title %}Thank You{% endblock %}
+{% load otree static %}
+
+{% block title %}
+    Thank You for Your participation
+{% endblock %}
 
 {% block content %}
 
-<img src="{% static 'images/end_image.jpg' %}" style="width: 937px; height: 400px;" alt="End Page Image" />
-<br />
+<head>
+    <link rel="stylesheet" href="{% static 'global/style.css' %}"> 
+</head>
 
+
+<img src="{% static 'images/end_image.jpg' %}" style="width: 937px; height: 400px;" alt="End Page Image" />
 
 {% if is_prolific_user %}
-<p>Thank you very much for your participation! Please click the button below to return to Prolific.</p>
-<form method="post" action="https://app.prolific.co/submissions/complete?cc={{ prolific_completion_code }}">
-    <button type="submit">Return to Prolific</button>
-</form>
+    <p>Thank you very much for your participation! Please click the button below to return to Prolific.</p>
+    <form method="post" action="https://app.prolific.co/submissions/complete?cc={{ prolific_completion_code }}">
+        <button type="submit">Return to Prolific</button>
+    </form>
 {% else %}
-<p>Thank you very much for your participation!</p>
+    <p>Thank you very much for your participation!</p>
 {% endif %}
+
 {% endblock %}
