@@ -20,7 +20,7 @@ class Player(BasePlayer):
 
 
 # Pages
-class EndPage(Page):
+class endPage(Page):
     def is_displayed(self):
         return self.round_number == 1
 
@@ -33,4 +33,4 @@ class EndPage(Page):
         }
 
 
-page_sequence = [EndPage]
+page_sequence = [endPage]

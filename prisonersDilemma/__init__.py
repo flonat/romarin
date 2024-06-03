@@ -35,7 +35,10 @@ class Player(BasePlayer):
 
 # Pages
 
-class Decision(Page):
+class introPrisonersDilemma1(Page):
+    pass
+
+class decision2(Page):
     form_model = 'player'
     form_fields = ['decision']
     timeout_seconds = C.TIMEOUT_SECONDS
@@ -90,7 +93,7 @@ class Decision(Page):
         payoff_range = payoff_table[outcome_key]
         player.game_payoff = cu(random.randint(*payoff_range))
 
-class Results(Page):
+class results3(Page):
     form_model = 'player'
     form_fields = ['comment_result', 'comment_optional']
 
@@ -130,4 +133,4 @@ class Results(Page):
         if not values['comment_result']:
             return 'Please provide your thoughts on the results.'
 
-page_sequence = [Decision, Results]
+page_sequence = [introPrisonersDilemma1, decision2, results3]

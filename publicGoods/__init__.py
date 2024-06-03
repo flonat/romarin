@@ -30,7 +30,10 @@ class Player(BasePlayer):
 
 # Pages
 
-class Decision(Page):
+class introPublicGoods1(Page):
+    pass
+
+class decision2(Page):
     form_model = 'player'
     form_fields = ['contribution']
     timeout_seconds = C.TIMEOUT_SECONDS
@@ -63,7 +66,7 @@ class Decision(Page):
             player.outcome = player.contribution * C.MULTIPLIER
 
 
-class Results(Page):
+class results3(Page):
     form_model = 'player'
     form_fields = ['comment_result', 'comment_optional']
 
@@ -80,4 +83,4 @@ class Results(Page):
         if not values['comment_result']:
             return 'Please provide your thoughts on the results.'
 
-page_sequence = [Decision, Results]
+page_sequence = [introPublicGoods1, decision2, results3]

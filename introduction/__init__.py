@@ -15,6 +15,8 @@ class C(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         """Assign treatments to participants."""
+        players = self.get_players()
+        random.shuffle(players) 
         treatments = itertools.cycle(C.TREATMENTS)
         for player in self.get_players():
             treatment = next(treatments)  # Get the next treatment from the cycle
@@ -45,28 +47,21 @@ class Player(BasePlayer):
     
     
 # Pages
-class Introduction(Page):
-    def is_displayed(self):
-        return self.round_number == 1
+class intro1(Page):
+    pass
 
-class InfoSheet(Page):
-    def is_displayed(self):
-        return self.round_number == 1
+class infoSheet2(Page):
+    pass
 
-class ConsentForm(Page):
-    def is_displayed(self):
-        return self.round_number == 1
+class consentForm3(Page):
     def vars_for_template(self):
         return {
             'next': 'I Give My Consent'
         }
 
-class ParticipantType(Page):
+class participantType4(Page):
     form_model = 'player'
     form_fields = ['participant_type', 'fictitious_name', 'prolific_id']
-
-    def is_displayed(self):
-        return self.round_number == 1
 
     def before_next_page(self, timeout_happened=False):
         redirect_url = 'GamesIntro'
@@ -84,10 +79,7 @@ class ParticipantType(Page):
             return 'Please enter your Prolific ID.'
 
 
-class GamesIntro(Page):
-    def is_displayed(self):
-        return self.round_number == 1
-
+class gamesIntro5(Page):
     def vars_for_template(self):
         return {}
 
@@ -97,25 +89,22 @@ class GamesIntro(Page):
     #     self.player.time_spent_games_intro = time_spent
     #     self.player.save()
 
-class PGIntro(Page):
-    def is_displayed(self):
-        return self.round_number == 1
+# class PGIntro(Page):
+#     def vars_for_template(self):
+#         return {}
 
-    def vars_for_template(self):
-        return {}
+#     # def before_next_page(self, timeout_happened=False):
+#     #     # Retrieve the 'time_spent' value from the participant's vars
+#     #     time_spent = float(self.participant.vars.get('time_spent_pg_intro', 0))
+#     #     self.player.time_spent_pg_intro = time_spent
+#     #     self.player.save()
 
-    # def before_next_page(self, timeout_happened=False):
-    #     # Retrieve the 'time_spent' value from the participant's vars
-    #     time_spent = float(self.participant.vars.get('time_spent_pg_intro', 0))
-    #     self.player.time_spent_pg_intro = time_spent
-    #     self.player.save()
+# class PDIntro(Page):
+#     def is_displayed(self):
+#         return self.round_number == 1
 
-class PDIntro(Page):
-    def is_displayed(self):
-        return self.round_number == 1
-
-    def vars_for_template(self):
-        return {}
+#     def vars_for_template(self):
+#         return {}
 
     # def before_next_page(self, timeout_happened=False):
     #     # Retrieve the 'time_spent' value from the participant's vars
@@ -123,12 +112,12 @@ class PDIntro(Page):
     #     self.player.time_spent_pd_intro = time_spent
     #     self.player.save()
 
-class MEIntro(Page):
-    def is_displayed(self):
-        return self.round_number == 1
+# class MEIntro(Page):
+#     def is_displayed(self):
+#         return self.round_number == 1
 
-    def vars_for_template(self):
-        return {}
+#     def vars_for_template(self):
+#         return {}
 
     # def before_next_page(self, timeout_happened=False):
     #     # Retrieve the 'time_spent' value from the participant's vars
@@ -139,12 +128,9 @@ class MEIntro(Page):
 
 
 page_sequence = [
-    Introduction, 
-    InfoSheet, 
-    ConsentForm, 
-    ParticipantType, 
-    GamesIntro,
-    PDIntro,
-    PGIntro,
-    MEIntro
-]
+    intro1, 
+    infoSheet2, 
+    consentForm3, 
+    participantType4, 
+    gamesIntro5
+    ]

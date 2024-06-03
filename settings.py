@@ -49,7 +49,10 @@ SESSION_CONFIGS = [
         num_demo_participants=2,  # Change to an appropriate number of participants for demo sessions
         app_sequence=[
             'introduction',
-            'prisoner',
+            'prisonersDilemma',
+            'publicGoods',
+            'marketEntry',
+            'questions',
             'end'
         ]
     ),

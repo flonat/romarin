@@ -95,7 +95,7 @@ class Player(BasePlayer):
     
 # Pages
 
-class GeneralQuestions(Page):
+class general1(Page):
     def is_displayed(self):
         return self.round_number == 1
 
@@ -106,7 +106,7 @@ class GeneralQuestions(Page):
         return 'GeneralQuestions.html'
 
 
-class SpecificQuestions(Page):
+class specific2(Page):
     def is_displayed(self):
         return self.round_number == 1
 
@@ -121,4 +121,4 @@ class SpecificQuestions(Page):
         return 'SpecificQuestions.html'
 
 
-page_sequence = [GeneralQuestions, SpecificQuestions]
+page_sequence = [general1, specific2]
